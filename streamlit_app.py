@@ -2,6 +2,13 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
+
+
+
+#1. Scrape TradingView for This week + next week data. 
+#2. show it in the dashboard. Maybe create a selector to select companies and show a more granular dashboard
+#3. email capability? 
+'''
 # Show the page title and description.
 st.set_page_config(page_title="Movies dataset", page_icon="🎬")
 st.title("🎬 Movies dataset")
@@ -64,3 +71,4 @@ chart = (
     .properties(height=320)
 )
 st.altair_chart(chart, use_container_width=True)
+'''
