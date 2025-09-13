@@ -10,6 +10,7 @@ A simple Streamlit app showing movie data from [The Movie Database (TMDB)](https
 
    ```
    $ pip install -r requirements.txt
+
    ```
 
 2. Run the app
