@@ -3,7 +3,7 @@ from selenium.webdriver.chrome.service import Service
 import time
 
 
-service = Service(executable_path="chromedriver.exe")
+service = Service(executable_path="/workspaces/sgxearningscal/chromedriver.exe")
 driver = webdriver.Chrome(service=service)
 driver.get("https://www.investingnote.com/stock_events/calendar?event_type=result_release&source=&country=")
 
