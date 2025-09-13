@@ -1,29 +1,22 @@
-# app.py
-
 import streamlit as st
 import requests
+from bs4 import BeautifulSoup
 
-def fetch_page(url: str):
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                      "AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/115.0.0.0 Safari/537.36"
-    }
-    resp = requests.get(url, headers=headers)
-    return resp.text if resp.status_code == 200 else f"Error: {resp.status_code}"
+st.title("Static Page Cloner")
 
-def main():
-    st.title("Raw HTML Viewer")
+url = st.text_input("Enter a URL:", "https://example.com")
 
-    url = st.text_input(
-        "Enter URL", 
-        "https://www.investingnote.com/stock_events/calendar?event_type=result_release&source=&country="
-    )
+if st.button("Clone Page"):
+    headers = {"User-Agent": "Mozilla/5.0"}
+    r = requests.get(url, headers=headers)
+    if r.status_code == 200:
+        soup = BeautifulSoup(r.text, "html.parser")
 
-    if st.button("Fetch Page"):
-        with st.spinner("Fetching page..."):
-            html = fetch_page(url)
-        st.text_area("Raw HTML Content", html, height=600)
+        # Optional: strip scripts for safety
+        for tag in soup(["script", "style"]):
+            tag.decompose()
 
-if __name__ == "__main__":
-    main()
+        # Render
+        st.components.v1.html(str(soup), height=800, scrolling=True)
+    else:
+        st.error(f"Failed: {r.status_code}")
